@@ -1,7 +1,6 @@
 package cl.moriahdp.tarbaychile.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,15 +50,14 @@ public class ProductsListAdapter extends ArrayAdapter<Product> {
         TextView mProductTitleView;
 
         public ViewHolder(View view){
-            mProductMainImageView = (ImageView) view.findViewById(R.id.ivProductMainImage);
-            mProductTitleView = (TextView) view.findViewById(R.id.tvProductTitle);
+            mProductMainImageView = (ImageView) view.findViewById(R.id.ivMainImageProductList);
+            mProductTitleView = (TextView) view.findViewById(R.id.tvTitleProductList);
 
         }
 
         public void setProduct(View view, Product product){
             this.mProductTitleView.setText(product.getTitle());
-            Log.d("URL", product.getUrlMainImage());
-            Picasso.with(view.getContext()).load(product.getUrlMainImage()).fit().into(mProductMainImageView);
+            Picasso.with(view.getContext()).load(product.getUrlMainImage()).placeholder(R.drawable.tarbay).fit().into(mProductMainImageView);
         }
 
     }
