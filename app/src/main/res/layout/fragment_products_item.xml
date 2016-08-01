@@ -6,16 +6,14 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="400dp"
         android:id="@+id/ivProductMainImage"
-        android:src="@drawable/tarbay"
-        android:layout_weight="0.65" />
+        android:src="@drawable/tarbay" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.05"
+        android:layout_height="30dp"
         android:weightSum="1">
 
         <ImageView
@@ -57,11 +55,10 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/tvProductTitle"
-        android:layout_weight="0.1"
         android:gravity="top" />
 
 </LinearLayout>

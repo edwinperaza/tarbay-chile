@@ -6,6 +6,7 @@ package cl.moriahdp.tarbaychile.network;
 public class AppRequestManager {
 
     //API Urls
-    public final static String BASE_URL = "http://test.moriah.cl/";
+//    public final static String BASE_URL = "http://test.moriahdp.cl/";
+    public final static String BASE_URL = "http://private-48bb00-edwinperaza.apiary-mock.com/";
     public final static String API_URL = "api/v1/";
 }

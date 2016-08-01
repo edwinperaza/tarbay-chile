@@ -1,12 +1,15 @@
 package cl.moriahdp.tarbaychile.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class ProductsListAdapter extends ArrayAdapter<Product> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.setProduct(product);
+        viewHolder.setProduct(convertView, product);
         return convertView;
     }
 
@@ -53,10 +56,11 @@ public class ProductsListAdapter extends ArrayAdapter<Product> {
 
         }
 
-        public void setProduct(Product product){
-            this.mProductTitleView.setText("Collar hermoso");
+        public void setProduct(View view, Product product){
+            this.mProductTitleView.setText(product.getTitle());
+            Log.d("URL", product.getUrlMainImage());
+            Picasso.with(view.getContext()).load(product.getUrlMainImage()).fit().into(mProductMainImageView);
         }
-
 
     }
 }
