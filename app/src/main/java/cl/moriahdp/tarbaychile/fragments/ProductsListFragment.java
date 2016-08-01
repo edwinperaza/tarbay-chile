@@ -100,14 +100,4 @@ public class ProductsListFragment extends Fragment {
         JsonObjectRequest request = ProductRequestManager.getProductsList(appResponseListener);
         VolleyManager.getInstance(getContext()).addToRequestQueue(request);
     }
-
-    public void setProducts(){
-                       for (int i = 0; i < 10; i++) {
-
-                       Product product = new Product("Collar Nro: "+i, 100 , "");
-                           mProductsListAdapter.add(product);
-
-                    }
-
-          }
 }

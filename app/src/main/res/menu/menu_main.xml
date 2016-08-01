@@ -2,14 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/miCompose"
-        android:icon="@mipmap/ic_launcher"
+        android:id="@+id/myFeed"
+        android:icon="@drawable/ic_home_black_24dp"
         app:showAsAction="ifRoom"
         android:title="Compose">
     </item>
     <item
-        android:id="@+id/miProfile"
-        android:icon="@mipmap/ic_launcher"
+        android:id="@+id/mySearch"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="Profile">
+    </item>
+    <item
+        android:id="@+id/myWish"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
         app:showAsAction="ifRoom|withText"
         android:title="Profile">
     </item>

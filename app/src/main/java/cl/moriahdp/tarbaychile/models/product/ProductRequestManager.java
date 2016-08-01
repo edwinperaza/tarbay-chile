@@ -1,7 +1,5 @@
 package cl.moriahdp.tarbaychile.models.product;
 
-import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -27,7 +25,6 @@ public class ProductRequestManager extends AppRequestManager {
     public static JsonObjectRequest getProductsList(AppResponseListener<JSONObject> responseListener) {
 
         JSONObject params = new JSONObject();
-        Log.d("Haciendo Request", PRODUCT_LIST_API);
 
         return new JsonObjectRequest(Request.Method.GET, PRODUCT_LIST_API, params, responseListener,
                                      responseListener);
