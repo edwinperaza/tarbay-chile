@@ -19,4 +19,11 @@
         app:showAsAction="ifRoom|withText"
         android:title="Profile">
     </item>
+    <!--Temporal Icon-->
+    <item
+        android:id="@+id/logOut"
+        android:icon="@drawable/ic_perm_identity_black_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="LogOut">
+    </item>
 </menu>

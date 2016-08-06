@@ -1,8 +1,12 @@
 package cl.moriahdp.tarbaychile.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,6 +21,9 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import cl.moriahdp.tarbaychile.R;
 
@@ -34,8 +41,9 @@ public class LoginActivity extends GeneralActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
         mCallbackManager = CallbackManager.Factory.create();
         // Bind views.
         mLoginButton = (LoginButton) findViewById(R.id.login_button);
