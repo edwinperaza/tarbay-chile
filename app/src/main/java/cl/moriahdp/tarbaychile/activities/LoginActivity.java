@@ -26,6 +26,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import cl.moriahdp.tarbaychile.R;
+import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
 public class LoginActivity extends GeneralActivity {
 
@@ -66,6 +67,7 @@ public class LoginActivity extends GeneralActivity {
                                         String emailFacebook;
                                         try {
                                             emailFacebook = jsonObject.getString("email");
+                                            PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,emailFacebook);
                                             Log.d(TAG + " Email FB",emailFacebook);
                                             Log.d(TAG + " Token FB",token);
                                         } catch (JSONException e) {
