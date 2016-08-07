@@ -5,18 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.facebook.login.LoginManager;
-
-import org.json.JSONObject;
 
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.adapters.FragPagerAdapter;
@@ -29,8 +22,8 @@ public class MainActivity extends GeneralActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Context context = getApplicationContext();
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //I have edited this sentence to launch Stories Fragment without login if you want to
         //test login please uncomment the following sentence
@@ -68,9 +61,6 @@ public class MainActivity extends GeneralActivity {
 
         //noinspection SimplifiableIfStatement
         switch (id){
-            case R.id.myFeed: break;
-            case R.id.mySearch: break;
-            case R.id.myWish: break;
             case R.id.logOut: showAlertDialogLogOut(); break;
         }
 
