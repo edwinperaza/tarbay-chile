@@ -4,9 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +17,7 @@ import com.facebook.login.LoginManager;
 import org.json.JSONObject;
 
 import cl.moriahdp.tarbaychile.R;
-import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
+import cl.moriahdp.tarbaychile.adapters.FragPagerAdapter;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
 public class MainActivity extends GeneralActivity {
@@ -26,13 +26,20 @@ public class MainActivity extends GeneralActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
-        Fragment mProductsListFragment = ProductsListFragment.newInstance("Productos");
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.mainFragment, mProductsListFragment);
-        ft.commit();
+//        FragPagerAdapter FragPagerAdapter = new FragPagerAdapter(getSupportFragmentManager(),MainActivity.this);
+
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new FragPagerAdapter(getSupportFragmentManager(),MainActivity.this));
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
     }
 
     // Menu icons are inflated just as they were with actionbar
