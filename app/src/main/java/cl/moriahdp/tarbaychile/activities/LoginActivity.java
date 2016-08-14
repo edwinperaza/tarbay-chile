@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -38,6 +40,7 @@ public class LoginActivity extends GeneralActivity {
     // UI Facebook references
     private LoginButton mLoginButton;
     private CallbackManager mCallbackManager;
+    private TextView mSingUpLinkView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class LoginActivity extends GeneralActivity {
         mCallbackManager = CallbackManager.Factory.create();
         // Bind views.
         mLoginButton = (LoginButton) findViewById(R.id.login_button);
+        mSingUpLinkView = (TextView) findViewById(R.id.tv_link_signup);
 
         //I have edited this sentence to launch Stories Fragment without login if you want to
         //test login please uncomment the following sentence
@@ -105,6 +109,15 @@ public class LoginActivity extends GeneralActivity {
         } else {
             startActivityClosingAllOthers(MainActivity.class);
         }
+
+
+        mSingUpLinkView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SingUpActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
