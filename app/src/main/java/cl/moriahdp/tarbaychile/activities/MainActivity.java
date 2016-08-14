@@ -3,6 +3,7 @@ package cl.moriahdp.tarbaychile.activities;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -19,7 +20,7 @@ import cl.moriahdp.tarbaychile.helpers.NonSwipeableViewPager;
 import cl.moriahdp.tarbaychile.models.product.Product;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
-public class MainActivity extends GeneralActivity implements ProductsListFragment.onItemSelectedListener {
+public class MainActivity extends GeneralActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,14 @@ public class MainActivity extends GeneralActivity implements ProductsListFragmen
         builder.show();
     }
 
-    @Override
-    public void onProductItemSelected(Product product) {
-        //TODO IMPLEMENT METHOD
-    }
+//    @Override
+//    public void onProductItemSelected(Product product) {
+////        if (product != null) {
+////
+////            Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
+////            intent.putExtra("product", product);
+////            startActivity(intent);
+////
+////        }
+//    }
 }
