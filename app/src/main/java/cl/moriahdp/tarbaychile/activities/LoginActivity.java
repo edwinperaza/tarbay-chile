@@ -1,14 +1,11 @@
 package cl.moriahdp.tarbaychile.activities;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +21,6 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
@@ -38,9 +32,14 @@ public class LoginActivity extends GeneralActivity {
     public static final String FACEBOOK_USER_FRIENDS = "user_friends";
 
     // UI Facebook references
-    private LoginButton mLoginButton;
+    private LoginButton mLoginFacebookButton;
     private CallbackManager mCallbackManager;
+
+    //UI Login references
+    private Button mLoginButton;
     private TextView mSingUpLinkView;
+    private EditText mEmailView;
+    private EditText mPasswordView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +49,19 @@ public class LoginActivity extends GeneralActivity {
 
         mCallbackManager = CallbackManager.Factory.create();
         // Bind views.
-        mLoginButton = (LoginButton) findViewById(R.id.login_button);
+        mLoginFacebookButton = (LoginButton) findViewById(R.id.login_button);
+        mLoginButton = (Button) findViewById(R.id.btn_login);
         mSingUpLinkView = (TextView) findViewById(R.id.tv_link_signup);
+        mEmailView = (EditText) findViewById(R.id.et_input_email);
+        mPasswordView = (EditText) findViewById(R.id.et_input_password);
 
-        //I have edited this sentence to launch Stories Fragment without login if you want to
-        //test login please uncomment the following sentence
         if(!PreferencesManager.isUserLogged(getApplicationContext())) {
 
             //Set Facebook permissions
-            mLoginButton.setReadPermissions(FACEBOOK_PROFILE, FACEBOOK_EMAIL, FACEBOOK_USER_FRIENDS);
+            mLoginFacebookButton.setReadPermissions(FACEBOOK_PROFILE, FACEBOOK_EMAIL, FACEBOOK_USER_FRIENDS);
 
             // Register Callback Facebook button
-            mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            mLoginFacebookButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
                         @Override
                         public void onSuccess(LoginResult loginResult) {
                             // Now we can get facebookToken but is necessary request the email address
@@ -110,6 +110,13 @@ public class LoginActivity extends GeneralActivity {
             startActivityClosingAllOthers(MainActivity.class);
         }
 
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validate();
+            }
+        });
+
 
         mSingUpLinkView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +125,29 @@ public class LoginActivity extends GeneralActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mEmailView.setError("enter a valid email address");
+            valid = false;
+        } else {
+            mEmailView.setError(null);
+        }
+
+        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
+            mPasswordView.setError("between 4 and 10 alphanumeric characters");
+            valid = false;
+        } else {
+            mPasswordView.setError(null);
+        }
+
+        return valid;
     }
 
     @Override
