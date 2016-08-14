@@ -9,9 +9,11 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
+import cl.moriahdp.tarbaychile.models.product.Product;
 
 public class FragPagerAdapter extends FragmentPagerAdapter {
 

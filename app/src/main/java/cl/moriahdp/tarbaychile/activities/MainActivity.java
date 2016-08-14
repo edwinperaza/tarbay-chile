@@ -7,16 +7,19 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.adapters.FragPagerAdapter;
+import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
 import cl.moriahdp.tarbaychile.helpers.NonSwipeableViewPager;
+import cl.moriahdp.tarbaychile.models.product.Product;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
-public class MainActivity extends GeneralActivity {
+public class MainActivity extends GeneralActivity implements ProductsListFragment.onItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,5 +97,10 @@ public class MainActivity extends GeneralActivity {
                 .setNegativeButton(android.R.string.cancel, negativeButtonClickListener);
 
         builder.show();
+    }
+
+    @Override
+    public void onProductItemSelected(Product product) {
+        //TODO IMPLEMENT METHOD
     }
 }
