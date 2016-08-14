@@ -13,6 +13,7 @@ import com.facebook.login.LoginManager;
 
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.adapters.FragPagerAdapter;
+import cl.moriahdp.tarbaychile.helpers.NonSwipeableViewPager;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
 public class MainActivity extends GeneralActivity {
@@ -34,7 +35,7 @@ public class MainActivity extends GeneralActivity {
         } else {
 
             // Get the ViewPager and set it's PagerAdapter so that it can display items
-            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            NonSwipeableViewPager viewPager = (NonSwipeableViewPager) findViewById(R.id.viewpager);
             viewPager.setAdapter(new FragPagerAdapter(getSupportFragmentManager(),MainActivity.this));
 
             // Give the TabLayout the ViewPager
