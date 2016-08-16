@@ -21,27 +21,25 @@ public class UserRequestManager extends AppRequestManager {
 
     public static String FIRST_NAME = "first_name";
     public static String LAST_NAME = "last_name";
+    public static String USERNAME = "username";
     public static String EMAIL = "email";
     public static String PASSWORD = "password";
 
     /**
      * Creates a new JsonObjectRequest for creating a new user.
      *
-     * @param firstName The first name of the user to create
-     * @param lastName The last name of the user to create
+     * @param username The first name of the user to create
      * @param email The email of the user to create
      * @param password The password of the user to create
      * @param responseListener The listener for on success and error callbacks
      * @return The created JsonObjectRequest for create user webservice
      */
-    public static JsonObjectRequest createUserRequest(String firstName, String lastName,
-                                                      String email, String password,
+    public static JsonObjectRequest signUpUserRequest(String username, String email, String password,
                                                       AppResponseListener<JSONObject> responseListener) {
 
         JSONObject params = new JSONObject();
         try {
-            params.put(FIRST_NAME, firstName);
-            params.put(LAST_NAME, lastName);
+            params.put(USERNAME, username);
             params.put(EMAIL, email);
             params.put(PASSWORD, password);
 

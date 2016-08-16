@@ -1,5 +1,6 @@
 package cl.moriahdp.tarbaychile.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -22,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cl.moriahdp.tarbaychile.R;
+import cl.moriahdp.tarbaychile.models.user.User;
+import cl.moriahdp.tarbaychile.network.AppResponseListener;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
 public class LoginActivity extends GeneralActivity {
@@ -40,6 +44,9 @@ public class LoginActivity extends GeneralActivity {
     private TextView mSingUpLinkView;
     private EditText mEmailView;
     private EditText mPasswordView;
+
+    // Listener
+    private AppResponseListener<JSONObject> mResponseListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,4 +167,5 @@ public class LoginActivity extends GeneralActivity {
         // disable going back to the MainActivity
         moveTaskToBack(true);
     }
-}
+
+    }

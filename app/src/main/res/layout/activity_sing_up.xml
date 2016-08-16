@@ -27,7 +27,7 @@ tools:context="cl.moriahdp.tarbaychile.activities.SingUpActivity">
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_name"
+        <EditText android:id="@+id/et_register_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
@@ -40,7 +40,7 @@ tools:context="cl.moriahdp.tarbaychile.activities.SingUpActivity">
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_email"
+        <EditText android:id="@+id/et_register_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -53,7 +53,7 @@ tools:context="cl.moriahdp.tarbaychile.activities.SingUpActivity">
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_password"
+        <EditText android:id="@+id/et_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -62,7 +62,7 @@ tools:context="cl.moriahdp.tarbaychile.activities.SingUpActivity">
 
     <!-- SignUp Button -->
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_signup"
+        android:id="@+id/btn_register_signup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
