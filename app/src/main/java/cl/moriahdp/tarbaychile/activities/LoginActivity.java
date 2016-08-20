@@ -217,8 +217,6 @@ public class LoginActivity extends GeneralActivity {
             mEmailView.setError(null);
         }
 
-
-
         if (!valid) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -227,58 +225,6 @@ public class LoginActivity extends GeneralActivity {
 
         return valid;
     }
-
-
-    private void attemptLogInWithFacebook () {
-        //Set Facebook permissions
-        mLoginFacebookButton.setReadPermissions(FACEBOOK_PROFILE, FACEBOOK_EMAIL, FACEBOOK_USER_FRIENDS);
-
-        // Register Callback Facebook button
-        mLoginFacebookButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // Now we can get facebookToken but is necessary request the email address
-                        // from GraphRequest API
-                        final String token = loginResult.getAccessToken().getToken();
-
-                        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject jsonObject, GraphResponse response) {
-                                        String emailFacebook;
-                                        try {
-                                            emailFacebook = jsonObject.getString("email");
-                                            PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,emailFacebook);
-                                            Log.d(TAG + " Email FB",emailFacebook);
-                                            Log.d(TAG + " Token FB",token);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        startActivityClosingAllOthers(MainActivity.class);
-                                    }
-                                });
-
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,email");
-                        request.setParameters(parameters);
-                        request.executeAsync();
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(LoginActivity.this, "Cancelado por el usuario", Toast.LENGTH_LONG).show();
-
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-                        Log.d("error", error.getClass().toString());
-                        Toast.makeText(LoginActivity.this, "Ha ocurrido un error", Toast.LENGTH_LONG).show();
-                    }
-                }
-        );
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
