@@ -60,6 +60,43 @@ public class SingUpActivity extends GeneralActivity {
 
     }
 
+    private boolean validateRegisterForm(String email, String username, String password){
+        boolean valid = true;
+        View focusView = null;
+
+        if (password.isEmpty() || password.length() < 6 || password.length() > 10) {
+            mPasswordView.setError("Introduzca entre 6 and 10 caracteres alfanumericos");
+            focusView = mPasswordView;
+            valid = false;
+        } else {
+            mPasswordView.setError(null);
+        }
+
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mEmailView.setError("Introduzca una dirección válida");
+            focusView = mEmailView;
+            valid = false;
+        } else {
+            mEmailView.setError(null);
+        }
+
+        if (username.isEmpty() || username.length() < 6 || username.length() > 15) {
+            mUsernameView.setError("su usuario debe tener por lo menos 6 caracteres");
+            focusView = mEmailView;
+            valid = false;
+        } else {
+            mEmailView.setError(null);
+        }
+
+        if (!valid) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        }
+        return valid;
+
+    }
+
     /**
      * Attempts to sign register a new user.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -81,14 +118,7 @@ public class SingUpActivity extends GeneralActivity {
 
         // This method validate each field of the form and also update boolean variable called
         // "cancel", also assign focusView to the first field with errors.
-//        validateRegisterForm(email, firstName, lastName, age, gender, address, zone, region, study,
-//                password, passwordConfirmation);
-
-//        if (cancel) {
-//            // There was an error; don't attempt login and focus the first
-//            // form field with an error.
-//            focusView.requestFocus();
-//        } else {
+        if (validateRegisterForm(email, username, password)){
 
             //We show the loader and hide the form
 //            showHideView(mProgressView, mLoginFormView, true);
@@ -116,7 +146,6 @@ public class SingUpActivity extends GeneralActivity {
             JsonObjectRequest request = UserRequestManager.signUpUserRequest(username, email, password, appResponseListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
 //        }
-
+        }
     }
-
 }

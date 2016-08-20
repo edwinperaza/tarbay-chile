@@ -15,12 +15,13 @@ import cl.moriahdp.tarbaychile.network.AppResponseListener;
 public class UserRequestManager extends AppRequestManager {
 
     private static final String USER_API_URL = BASE_URL + API_URL + "user/";
+    private static final String USER_TEST = "http://192.168.0.16:8080/VentasMobileWebServices/services/user/create";
     private static final String LOGIN_API_URL = USER_API_URL + "login/";
     private static final String LOGOUT_API_URL = USER_API_URL + "logout/";
     private static final String RECOVER_PASSWORD_API_URL = USER_API_URL + "recover_password/";
 
-    public static String FIRST_NAME = "first_name";
-    public static String LAST_NAME = "last_name";
+    public static String FIRST_NAME = "firstname";
+    public static String LAST_NAME = "lastname";
     public static String USERNAME = "username";
     public static String EMAIL = "email";
     public static String PASSWORD = "password";
@@ -48,7 +49,7 @@ public class UserRequestManager extends AppRequestManager {
             e.printStackTrace();
         }
 
-        return new JsonObjectRequest(Request.Method.POST, USER_API_URL, params, responseListener, responseListener);
+        return new JsonObjectRequest(Request.Method.POST, USER_TEST, params, responseListener, responseListener);
     }
 
     /**
