@@ -24,6 +24,7 @@ public class UserRequestManager extends AppRequestManager {
     public static String USERNAME = "username";
     public static String EMAIL = "email";
     public static String PASSWORD = "password";
+    public static String TOKEN = "token";
 
     /**
      * Creates a new JsonObjectRequest for creating a new user.
