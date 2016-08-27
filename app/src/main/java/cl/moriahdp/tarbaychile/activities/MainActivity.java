@@ -3,6 +3,7 @@ package cl.moriahdp.tarbaychile.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
 import cl.moriahdp.tarbaychile.R;
+import cl.moriahdp.tarbaychile.fragments.CategoriesListFragment;
 import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
 import cl.moriahdp.tarbaychile.models.product.Product;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
@@ -33,6 +35,7 @@ public class MainActivity extends GeneralActivity implements ProductsListFragmen
         setSupportActionBar(toolbar);
 
         Context context = getApplicationContext();
+
 
         if (!PreferencesManager.isUserLogged(context)) {
 
@@ -66,6 +69,7 @@ public class MainActivity extends GeneralActivity implements ProductsListFragmen
                         }
                         case R.id.search_item: {
                             Log.d("MainActivity", "Search");
+                            ShowCategoriesListFragment();
                             break;
                         }
                         case R.id.favorite_item: {
@@ -138,4 +142,13 @@ public class MainActivity extends GeneralActivity implements ProductsListFragmen
         ft.replace(R.id.mainFragment, mProductsListFragment);
         ft.commit();
     }
+
+    public void ShowCategoriesListFragment(){
+        Fragment mCategoriesListFragment = CategoriesListFragment.newInstance();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragment, mCategoriesListFragment);
+        ft.commit();
+    }
+
+
 }
