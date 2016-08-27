@@ -14,8 +14,11 @@ import cl.moriahdp.tarbaychile.network.AppResponseListener;
  */
 public class UserRequestManager extends AppRequestManager {
 
+    private static final String BASE_TEST = "http://192.168.0.16:8080/VentasMobileWebServices/services/user/";
+    private static final String LOGIN_TEST = BASE_TEST + "authenticate";
+    private static final String CREATE_TEST = BASE_TEST + "create";
+    private static final String LOGIN_FB_TEST = BASE_TEST + "loginfb";
     private static final String USER_API_URL = BASE_URL + API_URL + "user/";
-    private static final String USER_TEST = "http://192.168.0.16:8080/VentasMobileWebServices/services/user/create";
     private static final String LOGIN_API_URL = USER_API_URL + "login/";
     private static final String LOGOUT_API_URL = USER_API_URL + "logout/";
     private static final String RECOVER_PASSWORD_API_URL = USER_API_URL + "recover_password/";
@@ -26,6 +29,10 @@ public class UserRequestManager extends AppRequestManager {
     public static String EMAIL = "email";
     public static String PASSWORD = "password";
     public static String TOKEN = "token";
+    public static String FACEBOOK_TOKEN = "token";
+    public static String GENDER = "gender";
+
+
 
     /**
      * Creates a new JsonObjectRequest for creating a new user.
@@ -49,7 +56,7 @@ public class UserRequestManager extends AppRequestManager {
             e.printStackTrace();
         }
 
-        return new JsonObjectRequest(Request.Method.POST, USER_TEST, params, responseListener, responseListener);
+        return new JsonObjectRequest(Request.Method.POST, CREATE_TEST, params, responseListener, responseListener);
     }
 
     /**
@@ -73,7 +80,36 @@ public class UserRequestManager extends AppRequestManager {
             e.printStackTrace();
         }
 
-        return new JsonObjectRequest(Request.Method.POST, LOGIN_API_URL, params, responseListener, responseListener);
+//        return new JsonObjectRequest(Request.Method.POST, LOGIN_API_URL, params, responseListener, responseListener);
+        return new JsonObjectRequest(Request.Method.POST, LOGIN_TEST, params, responseListener, responseListener);
+
+    }
+
+    /**
+     * Creates a new JsonObjectRequest for logging in a user.
+     *
+     * @param email The email of the user to log in
+     * @param facebookToken The password of the user to log in
+     * @param responseListener The listener for on success and error callbacks
+     * @return The created JsonObjectRequest for logging in the user webservice
+     */
+    public static JsonObjectRequest userLogInFacebookRequest(String email, String facebookToken,
+                                                             String firstName, String lastName,
+                                                             String gender, AppResponseListener<JSONObject> responseListener) {
+
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put(EMAIL, email);
+            params.put(FACEBOOK_TOKEN, facebookToken);
+            params.put(FIRST_NAME, firstName);
+            params.put(LAST_NAME, lastName);
+            params.put(GENDER, gender);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return new JsonObjectRequest(Request.Method.POST, LOGIN_FB_TEST, params, responseListener, responseListener);
 
     }
 

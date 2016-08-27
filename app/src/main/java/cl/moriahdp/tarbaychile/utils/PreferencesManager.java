@@ -15,6 +15,7 @@ public class PreferencesManager {
     public final static String PREF_USER_USERNAME = PREF_USER + ".username";
     public final static String PREF_USER_EMAIL = PREF_USER + ".email";
     public final static String PREF_USER_TOKEN = PREF_USER + ".token";
+    public final static String PREF_USER_TOKEN_FACEBOOK = PREF_USER + ".token_facebook";
     public final static String PREF_USER_PASSWORD = PREF_USER + ".password";
     public final static String PREF_USER_FIRST_NAME = PREF_USER + ".firstName";
     public final static String PREF_USER_LAST_NAME = PREF_USER + ".lastName";

@@ -75,27 +75,37 @@ public class LoginActivity extends GeneralActivity {
                         public void onSuccess(LoginResult loginResult) {
                             // Now we can get facebookToken but is necessary request the email address
                             // from GraphRequest API
-                            final String token = loginResult.getAccessToken().getToken();
+                            final String tokenFacebook = loginResult.getAccessToken().getToken();
 
                             GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                                     new GraphRequest.GraphJSONObjectCallback() {
                                         @Override
                                         public void onCompleted(JSONObject jsonObject, GraphResponse response) {
-                                            String emailFacebook;
+                                            String emailFacebook = "";
+                                            String firstName = "";
+                                            String lastName = "";
+                                            String gender = "";
+
                                             try {
                                                 emailFacebook = jsonObject.getString("email");
-                                                PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,emailFacebook);
+                                                firstName = jsonObject.getString("first_name");
+                                                lastName = jsonObject.getString("last_name");
+                                                gender = jsonObject.getString("gender");
                                                 Log.d(TAG + " Email FB",emailFacebook);
-                                                Log.d(TAG + " Token FB",token);
+                                                Log.d(TAG + " Token FB",tokenFacebook);
+                                                Log.d(TAG + " First FB",firstName);
+                                                Log.d(TAG + " Last FB",lastName);
+                                                Log.d(TAG + " Gender FB",gender);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            startActivityClosingAllOthers(MainActivity.class);
+                                            attemptLoginWithFacebook(tokenFacebook, emailFacebook,
+                                                    firstName, lastName, gender);
                                         }
                                     });
 
                             Bundle parameters = new Bundle();
-                            parameters.putString("fields", "id,email");
+                            parameters.putString("fields", "id,email,first_name,last_name,gender");
                             request.setParameters(parameters);
                             request.executeAsync();
                         }
@@ -121,10 +131,8 @@ public class LoginActivity extends GeneralActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validate()){
+                if (validate()) {
                     attemptLogIn();
-                }else{
-                    Log.d(TAG, "AQUI PASO");
                 }
             }
         });
@@ -147,11 +155,22 @@ public class LoginActivity extends GeneralActivity {
 
         //We add the request
         JsonObjectRequest request = UserRequestManager.userLogInRequest(email, password, mResponseListener);
-//        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
-        //TODO THIS IS TEMPORAL PLEASE DELETE WHEN ENDPOINT IS WORKING
-        PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,email);
+        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
+//        //TODO THIS IS TEMPORAL PLEASE DELETE WHEN ENDPOINT IS WORKING
+//        PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,email);
 
         startActivityClosingAllOthers(MainActivity.class);
+    }
+
+    private void attemptLoginWithFacebook(String tokenFacebook, String email, String firstName, String lastName, String gender) {
+
+        setUpResponseListener();
+//        PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,email);
+
+        //We add the request
+        JsonObjectRequest request = UserRequestManager.userLogInFacebookRequest(email, tokenFacebook,
+                firstName, lastName, gender, mResponseListener);
+        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     private void setUpResponseListener() {
@@ -165,9 +184,13 @@ public class LoginActivity extends GeneralActivity {
 
                 User user = new User();
                 try {
-
-                    JSONObject jsonObjectUser = response.getJSONObject("user");
-                    user = User.jsonObjectToUser(jsonObjectUser);
+                    int code = response.getInt("code");
+                    if (code == 1) {
+                        JSONObject jsonObjectUser = response.getJSONObject("response");
+                        user = User.jsonObjectToUserFacebook(jsonObjectUser);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Datos incorrectos", Toast.LENGTH_LONG).show();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -175,8 +198,11 @@ public class LoginActivity extends GeneralActivity {
 
                 if (user != null) {
 
-                    PreferencesManager.saveUserCredentials(context, user.getEmail(), user.getPassword(), user.getUsername(), user.getToken());
-                    startActivityClosingAllOthers(GeneralActivity.class);
+                    PreferencesManager.saveUserCredentials(context, user.getEmail(),
+                            user.getPassword(), user.getUsername(), user.getToken());
+                    PreferencesManager.setStringPref(getApplicationContext(),
+                            PreferencesManager.PREF_USER_TOKEN_FACEBOOK,user.getTokenFacebook());
+                    startActivityClosingAllOthers(MainActivity.class);
 
                 }
 

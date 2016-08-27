@@ -12,15 +12,17 @@ public class User {
     private String username;
     private String password;
     private String token;
+    private String tokenFacebook;
 
     public User() {
     }
 
-    public User(String email, String username, String password, String token) {
+    public User(String email, String username, String password, String token, String tokenFacebook) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.token = token;
+        this.tokenFacebook = tokenFacebook;
     }
 
     public static User jsonObjectToUser (JSONObject jsonObjectUser) {
@@ -30,6 +32,20 @@ public class User {
             user.setUsername(jsonObjectUser.getString(UserRequestManager.USERNAME));
             user.setEmail(jsonObjectUser.getString(UserRequestManager.EMAIL));
             user.setPassword(jsonObjectUser.getString(UserRequestManager.PASSWORD));
+            user.setToken(jsonObjectUser.getString(UserRequestManager.TOKEN));
+            user.setTokenFacebook(jsonObjectUser.getString(UserRequestManager.FACEBOOK_TOKEN));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public static User jsonObjectToUserFacebook (JSONObject jsonObjectUser) {
+        User user = new User();
+
+        try {
+
+            user.setEmail(jsonObjectUser.getString(UserRequestManager.EMAIL));
             user.setToken(jsonObjectUser.getString(UserRequestManager.TOKEN));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -60,11 +76,20 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getTokenFacebook() {
+        return tokenFacebook;
+    }
+
+    public void setTokenFacebook(String tokenFacebook) {
+        this.tokenFacebook = tokenFacebook;
     }
 }

@@ -11,12 +11,15 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cl.moriahdp.tarbaychile.R;
+import cl.moriahdp.tarbaychile.models.user.User;
 import cl.moriahdp.tarbaychile.models.user.UserRequestManager;
 import cl.moriahdp.tarbaychile.network.AppResponseListener;
 import cl.moriahdp.tarbaychile.network.VolleyManager;
+import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
 public class SingUpActivity extends GeneralActivity {
 
@@ -109,9 +112,9 @@ public class SingUpActivity extends GeneralActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the register attempt.
-        String email = mEmailView.getText().toString();
-        String username = mUsernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        final String email = mEmailView.getText().toString();
+        final String username = mUsernameView.getText().toString();
+        final String password = mPasswordView.getText().toString();
 
         cancel = false;
         focusView = null;
@@ -122,13 +125,31 @@ public class SingUpActivity extends GeneralActivity {
 
             //We show the loader and hide the form
 //            showHideView(mProgressView, mLoginFormView, true);
-
             //We set the response listener with corresponding overridden methods
             AppResponseListener<JSONObject> appResponseListener = new AppResponseListener<JSONObject>(getApplicationContext()){
                 @Override
                 public void onResponse(JSONObject response) {
-                    Toast.makeText(getApplicationContext(), "Registro Satisfactorio", Toast.LENGTH_SHORT).show();
-                    startActivityClosingAllOthers(MainActivity.class);
+
+                    User user = new User();
+                    int code = 0;
+
+                    try {
+                        code = response.getInt("code");
+                        if (code == 1) {
+                            JSONObject jsonObjectUser = response.getJSONObject("response");
+                            user = User.jsonObjectToUser(jsonObjectUser);
+                            PreferencesManager.saveUserCredentials(getApplicationContext(), user.getEmail(),
+                                    user.getPassword(), user.getUsername(),user.getToken());
+                            Toast.makeText(getApplicationContext(), "Registro Satisfactorio", Toast.LENGTH_SHORT).show();
+                            startActivityClosingAllOthers(MainActivity.class);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Este correo ya esta registrado", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 @Override
