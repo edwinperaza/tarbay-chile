@@ -153,24 +153,27 @@ public class LoginActivity extends GeneralActivity {
 
         setUpResponseListener();
 
-        //We add the request
-        JsonObjectRequest request = UserRequestManager.userLogInRequest(email, password, mResponseListener);
-        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
-//        //TODO THIS IS TEMPORAL PLEASE DELETE WHEN ENDPOINT IS WORKING
-//        PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,email);
-
+        // TODO THIS IS TEMPORAL PLEASE DELETE WHEN ENDPOINT IS WORKING
+        PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,email);
         startActivityClosingAllOthers(MainActivity.class);
+
+        //We add the request
+//        JsonObjectRequest request = UserRequestManager.userLogInRequest(email, password, mResponseListener);
+//        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     private void attemptLoginWithFacebook(String tokenFacebook, String email, String firstName, String lastName, String gender) {
 
         setUpResponseListener();
-//        PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,email);
+
+        //TODO THIS IS TEMPORAL PLEASE DELETE WHEN ENDPOINT IS WORKING
+        PreferencesManager.setStringPref(getApplicationContext(),PreferencesManager.PREF_USER_EMAIL,email);
+        startActivityClosingAllOthers(MainActivity.class);
 
         //We add the request
-        JsonObjectRequest request = UserRequestManager.userLogInFacebookRequest(email, tokenFacebook,
-                firstName, lastName, gender, mResponseListener);
-        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
+//        JsonObjectRequest request = UserRequestManager.userLogInFacebookRequest(email, tokenFacebook,
+//                firstName, lastName, gender, mResponseListener);
+//        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     private void setUpResponseListener() {
