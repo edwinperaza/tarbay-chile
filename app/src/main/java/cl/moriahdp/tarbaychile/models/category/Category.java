@@ -1,29 +1,50 @@
 package cl.moriahdp.tarbaychile.models.category;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by edwinperaza on 8/27/16.
- */
+import cl.moriahdp.tarbaychile.models.subcategory.SubCategory;
+
 public class Category implements Serializable {
 
-    private String title;
+    private long id;
+    private String name;
+    private String descr;
     private String urlImage;
-
-    public Category(String title, String urlImage) {
-        this.title = title;
-        this.urlImage = urlImage;
-    }
+    private List<SubCategory> itemList = new ArrayList<>();
 
     public Category() {
     }
 
-    public String getTitle() {
-        return title;
+    public Category(long id, String name, String descr) {
+        this.id = id;
+        this.name = name;
+        this.descr = descr;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public String getUrlImage() {
@@ -32,5 +53,13 @@ public class Category implements Serializable {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public List<SubCategory> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<SubCategory> itemList) {
+        this.itemList = itemList;
     }
 }
