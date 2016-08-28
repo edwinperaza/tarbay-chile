@@ -5,14 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
+    <ExpandableListView
+        android:id="@+id/lvCategoriesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:dividerHeight="0.3dp"
-        android:id="@+id/lvCategoriesList" />
-
-    <!--android:divider="@null"-->
-    <!--android:dividerHeight="0dp"-->
+        android:fastScrollAlwaysVisible="false" />
 
 </LinearLayout>
