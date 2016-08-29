@@ -1,5 +1,6 @@
 package cl.moriahdp.tarbaychile.fragments;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -16,7 +18,29 @@ import cl.moriahdp.tarbaychile.R;
 
 public class ProfileFragment extends Fragment {
 
-    SimpleDraweeView draweeView;
+    private onOptionSelectedListener mListener;
+
+    private SimpleDraweeView mProfileImageView;
+    private TextView mLogOutView;
+    private Context mContext;
+
+    public ProfileFragment(){}
+
+    public interface onOptionSelectedListener {
+        void onLogOutSelectListener();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+        if (context instanceof onOptionSelectedListener) {
+            mListener = (onOptionSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implement ProfileFragment.onLogOutSelectListener");
+        }
+    }
 
     public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
@@ -35,13 +59,20 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        draweeView = (SimpleDraweeView) view.findViewById(R.id.user_profile_photo);
+        mProfileImageView = (SimpleDraweeView) view.findViewById(R.id.user_profile_photo);
+        mLogOutView = (TextView) view.findViewById(R.id.tv_log_out);
         Uri uri = Uri.parse("http://www.tarbay.com/media/wysiwyg/logo-tarbay-header.png");
-        draweeView.setImageURI(uri);
-        draweeView.setOnClickListener(new View.OnClickListener() {
+        mProfileImageView.setImageURI(uri);
+        mProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(getTag(), "Image Profile");
+            }
+        });
+        mLogOutView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onLogOutSelectListener();
             }
         });
         return view;

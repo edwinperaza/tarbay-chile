@@ -3,7 +3,6 @@ package cl.moriahdp.tarbaychile.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -24,7 +23,9 @@ import cl.moriahdp.tarbaychile.fragments.ProfileFragment;
 import cl.moriahdp.tarbaychile.models.product.Product;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
-public class MainActivity extends GeneralActivity implements ProductsListFragment.onItemSelectedListener {
+public class MainActivity extends GeneralActivity
+        implements ProductsListFragment.onItemSelectedListener,
+        ProfileFragment.onOptionSelectedListener {
 
     private BottomBar mBottomBar;
 
@@ -159,4 +160,8 @@ public class MainActivity extends GeneralActivity implements ProductsListFragmen
         ft.commit();
     }
 
+    @Override
+    public void onLogOutSelectListener() {
+        showLogOutAlertDialogLogOut();
+    }
 }
