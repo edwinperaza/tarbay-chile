@@ -20,6 +20,7 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.fragments.CategoriesListFragment;
 import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
+import cl.moriahdp.tarbaychile.fragments.ProfileFragment;
 import cl.moriahdp.tarbaychile.models.product.Product;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
@@ -78,6 +79,7 @@ public class MainActivity extends GeneralActivity implements ProductsListFragmen
                         }
                         case R.id.profile_item: {
                             Log.d("MainActivity", "Profile");
+                            ShowProfileFragment();
                             break;
                         }
                     }
@@ -150,5 +152,11 @@ public class MainActivity extends GeneralActivity implements ProductsListFragmen
         ft.commit();
     }
 
+    public void ShowProfileFragment(){
+        Fragment mProfileFragment = ProfileFragment.newInstance();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragment, mProfileFragment);
+        ft.commit();
+    }
 
 }

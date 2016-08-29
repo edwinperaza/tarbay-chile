@@ -2,8 +2,12 @@ package cl.moriahdp.tarbaychile.application;
 
 import android.app.Application;
 
-/**
- * Created by edwinperaza on 8/6/16.
- */
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 public class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Fresco.initialize(this);
+    }
 }
