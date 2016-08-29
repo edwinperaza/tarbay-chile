@@ -1,6 +1,7 @@
 package cl.moriahdp.tarbaychile.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -22,6 +24,7 @@ public class ProfileFragment extends Fragment {
 
     private SimpleDraweeView mProfileImageView;
     private TextView mLogOutView;
+    private ImageView mAddFriend;
     private Context mContext;
 
     public ProfileFragment(){}
@@ -59,8 +62,11 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
         mProfileImageView = (SimpleDraweeView) view.findViewById(R.id.user_profile_photo);
         mLogOutView = (TextView) view.findViewById(R.id.tv_log_out);
+        mAddFriend = (ImageView) view.findViewById(R.id.iv_add_friend);
+
         Uri uri = Uri.parse("http://www.tarbay.com/media/wysiwyg/logo-tarbay-header.png");
         mProfileImageView.setImageURI(uri);
         mProfileImageView.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +81,21 @@ public class ProfileFragment extends Fragment {
                 mListener.onLogOutSelectListener();
             }
         });
+
+        mAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareAction();
+            }
+        });
         return view;
+    }
+
+    public void shareAction(){
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_TEXT, "http://www.tarbay.com/");
+        startActivity(Intent.createChooser(share, getResources().getString(R.string.profile_share_title)));
     }
 
 }

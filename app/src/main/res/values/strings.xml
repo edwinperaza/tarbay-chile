@@ -8,4 +8,7 @@
     <string name="menu_bottom_buscar">Buscar</string>
     <string name="menu_bottom_favoritos">Favoritos</string>
     <string name="menu_bottom_perfil">Perfil</string>
+
+    <!--String related to Profile Fragment-->
+    <string name="profile_share_title">Comparte con tus amigas</string>
 </resources>
