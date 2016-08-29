@@ -10,7 +10,6 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:paddingBottom="24dp">
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/user_profile_photo"
+                android:id="@+id/sdv_profile_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
@@ -57,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
-                android:layout_below="@+id/user_profile_photo"
+                android:layout_below="@+id/sdv_profile_image"
                 android:text="Beatriz Gonzalez"
                 android:textColor="@color/black"
                 android:textSize="24sp"

@@ -24,6 +24,7 @@ public class ProfileFragment extends Fragment {
 
     private SimpleDraweeView mProfileImageView;
     private TextView mLogOutView;
+    private TextView mContactUs;
     private ImageView mAddFriend;
     private Context mContext;
 
@@ -31,6 +32,7 @@ public class ProfileFragment extends Fragment {
 
     public interface onOptionSelectedListener {
         void onLogOutSelectListener();
+        void onContactUsListener();
     }
 
     @Override
@@ -63,8 +65,9 @@ public class ProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        mProfileImageView = (SimpleDraweeView) view.findViewById(R.id.user_profile_photo);
+        mProfileImageView = (SimpleDraweeView) view.findViewById(R.id.sdv_profile_image);
         mLogOutView = (TextView) view.findViewById(R.id.tv_log_out);
+        mContactUs = (TextView) view.findViewById(R.id.tv_contact_us);
         mAddFriend = (ImageView) view.findViewById(R.id.iv_add_friend);
 
         Uri uri = Uri.parse("http://www.tarbay.com/media/wysiwyg/logo-tarbay-header.png");
@@ -79,6 +82,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mListener.onLogOutSelectListener();
+            }
+        });
+
+        mContactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onContactUsListener();
             }
         });
 

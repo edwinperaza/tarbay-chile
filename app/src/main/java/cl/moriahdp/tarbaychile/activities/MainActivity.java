@@ -18,6 +18,7 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.fragments.CategoriesListFragment;
+import cl.moriahdp.tarbaychile.fragments.ContactUsFragment;
 import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
 import cl.moriahdp.tarbaychile.fragments.ProfileFragment;
 import cl.moriahdp.tarbaychile.models.product.Product;
@@ -163,5 +164,15 @@ public class MainActivity extends GeneralActivity
     @Override
     public void onLogOutSelectListener() {
         showLogOutAlertDialogLogOut();
+    }
+
+    @Override
+    public void onContactUsListener() {
+
+            Fragment mProfileFragment = ContactUsFragment.newInstance();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFragment, mProfileFragment);
+            ft.commit();
+
     }
 }
