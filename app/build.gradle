@@ -41,4 +41,10 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
 
+    //BottomBar library (Test)
+    compile 'com.roughike:bottom-bar:1.4.0.1'
+
+    //Fresco Library
+    compile 'com.facebook.fresco:fresco:0.6.1'
+
 }

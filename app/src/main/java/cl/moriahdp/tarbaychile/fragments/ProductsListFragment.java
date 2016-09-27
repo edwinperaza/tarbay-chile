@@ -1,11 +1,13 @@
 package cl.moriahdp.tarbaychile.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -33,9 +35,15 @@ public class ProductsListFragment extends Fragment {
     private ListView mProductsListView;
     private ProductsListAdapter mProductsListAdapter;
     private ArrayList<Product> mProductsArrayList;
+    private Context mContext;
+    private onItemSelectedListener mListener;
 
     public ProductsListFragment() {
 
+    }
+
+    public interface onItemSelectedListener {
+        void onProductItemSelected(Product product);
     }
 
     public static ProductsListFragment newInstance(String title) {
@@ -53,6 +61,18 @@ public class ProductsListFragment extends Fragment {
         mProductsListAdapter = new ProductsListAdapter(getActivity(), mProductsArrayList);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+        if (context instanceof onItemSelectedListener) {
+            mListener = (onItemSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implement ProductsListFragment.OnItemSelectedListener");
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +81,14 @@ public class ProductsListFragment extends Fragment {
         mProductsListView = (ListView) view.findViewById(R.id.lvProductsList);
         mProductsListView.setAdapter(mProductsListAdapter);
         populateProducts();
+
+        mProductsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Product product = (Product) parent.getItemAtPosition(position);
+                mListener.onProductItemSelected(product);
+            }
+        });
         return view;
     }
 

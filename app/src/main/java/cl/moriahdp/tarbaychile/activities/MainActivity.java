@@ -1,47 +1,107 @@
 package cl.moriahdp.tarbaychile.activities;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.facebook.login.LoginManager;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabClickListener;
 
 import cl.moriahdp.tarbaychile.R;
-import cl.moriahdp.tarbaychile.adapters.FragPagerAdapter;
+import cl.moriahdp.tarbaychile.fragments.CategoriesListFragment;
+import cl.moriahdp.tarbaychile.fragments.ContactUsFragment;
+import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
+import cl.moriahdp.tarbaychile.fragments.ProfileFragment;
+import cl.moriahdp.tarbaychile.models.product.Product;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
 
-public class MainActivity extends GeneralActivity {
+public class MainActivity extends GeneralActivity
+        implements ProductsListFragment.onItemSelectedListener,
+        ProfileFragment.onOptionSelectedListener {
+
+    private BottomBar mBottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Context context = getApplicationContext();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //I have edited this sentence to launch Stories Fragment without login if you want to
-        //test login please uncomment the following sentence
-        if(!PreferencesManager.isUserLogged(context)) {
+        Context context = getApplicationContext();
+
+
+        if (!PreferencesManager.isUserLogged(context)) {
 
             startActivityClosingAllOthers(LoginActivity.class);
 
         } else {
+            mBottomBar = BottomBar.attach(this, savedInstanceState);
+            /*
+            * Prevent to add BottomBar background when we have more than 3 item, if we don't use
+            * this method we will need to call for each tab the next method:
+            * mBottomBar.mapColorForTab(0, ContextCompat.getColor(this, R.color.colorToolBar));
+            */
+            mBottomBar.setMaxFixedTabs(5);
+            // Set the layout to the BottomBar
+            mBottomBar.setItems(R.menu.menu_bottom_bar);
+            // Set the default tab for this BottomBar that is shown until the user changes the selection.
+            mBottomBar.setDefaultTabPosition(0);
+            // Set the Background Color of the BottomBar (Also) the application
+            mBottomBar.setBackgroundColor(Color.WHITE);
+            // Set the Color for the Active Tab of the BottomBar
+            mBottomBar.setActiveTabColor(ContextCompat.getColor(context, R.color.login_button));
 
-            // Get the ViewPager and set it's PagerAdapter so that it can display items
-            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-            viewPager.setAdapter(new FragPagerAdapter(getSupportFragmentManager(),MainActivity.this));
+            mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
+                @Override
+                public void onMenuTabSelected(@IdRes int menuItemId) {
+                    switch (menuItemId) {
+                        case R.id.home_item: {
+                            Log.d("MainActivity", "Home");
+                            ShowProductListFragment();
+                            break;
+                        }
+                        case R.id.search_item: {
+                            Log.d("MainActivity", "Search");
+                            ShowCategoriesListFragment();
+                            break;
+                        }
+                        case R.id.favorite_item: {
+                            Log.d("MainActivity", "Favorite");
+                            break;
+                        }
+                        case R.id.profile_item: {
+                            Log.d("MainActivity", "Profile");
+                            ShowProfileFragment();
+                            break;
+                        }
+                    }
+                }
 
-            // Give the TabLayout the ViewPager
-            TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-            tabLayout.setupWithViewPager(viewPager);
+                @Override
+                public void onMenuTabReSelected(@IdRes int menuItemId) {
+                    //TODO SCROLLING TO THE TOP OF OUR CONTENT
+                }
+            });
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Necessary to restore the BottomBar's state, otherwise we would
+        // lose the current tab on orientation change.
+        mBottomBar.onSaveInstanceState(outState);
     }
 
     // Menu icons are inflated just as they were with actionbar
@@ -60,38 +120,59 @@ public class MainActivity extends GeneralActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id){
-            case R.id.logOut: showAlertDialogLogOut(); break;
+        switch (id) {
+            case R.id.logOut:
+                showLogOutAlertDialogLogOut();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void showAlertDialogLogOut(){
+    @Override
+    public void onProductItemSelected(Product product) {
+        if (product != null) {
 
-        DialogInterface.OnClickListener positiveButtonClickListener =  new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Context context = getApplicationContext();
-                PreferencesManager.clearPrefs(context);
-                LoginManager.getInstance().logOut();
-                startActivityClosingAllOthers(LoginActivity.class);
-            }
-        };
+            Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
+            intent.putExtra("product", product);
+            startActivity(intent);
 
-        DialogInterface.OnClickListener negativeButtonClickListener =  new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        };
+        }
+    }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    public void ShowProductListFragment(){
+        Fragment mProductsListFragment = ProductsListFragment.newInstance("Productos");
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragment, mProductsListFragment);
+        ft.commit();
+    }
 
-        builder.setMessage(R.string.logout_confirmation)
-                .setPositiveButton(android.R.string.ok, positiveButtonClickListener)
-                .setNegativeButton(android.R.string.cancel, negativeButtonClickListener);
+    public void ShowCategoriesListFragment(){
+        Fragment mCategoriesListFragment = CategoriesListFragment.newInstance();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragment, mCategoriesListFragment);
+        ft.commit();
+    }
 
-        builder.show();
+    public void ShowProfileFragment(){
+        Fragment mProfileFragment = ProfileFragment.newInstance();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragment, mProfileFragment);
+        ft.commit();
+    }
+
+    @Override
+    public void onLogOutSelectListener() {
+        showLogOutAlertDialogLogOut();
+    }
+
+    @Override
+    public void onContactUsListener() {
+
+            Fragment mProfileFragment = ContactUsFragment.newInstance();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFragment, mProfileFragment);
+            ft.commit();
+
     }
 }
