@@ -4,9 +4,9 @@
     <string name="logout_confirmation">Esta seguro que desea salir?</string>
 
     <!--String related to Menu bottom Bar-->
-    <string name="menu_bottom_inicio">Inicio</string>
-    <string name="menu_bottom_buscar">Buscar</string>
-    <string name="menu_bottom_favoritos">Favoritos</string>
+    <string name="menu_bottom_inicio">Productos</string>
+    <string name="menu_bottom_buscar">Avisos</string>
+    <!--<string name="menu_bottom_favoritos">Favoritos</string>-->
     <string name="menu_bottom_perfil">Perfil</string>
 
     <!--String related to Profile Fragment-->

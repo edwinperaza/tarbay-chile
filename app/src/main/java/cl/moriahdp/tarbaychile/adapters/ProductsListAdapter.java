@@ -57,8 +57,12 @@ public class ProductsListAdapter extends ArrayAdapter<Product> {
 
         public void setProduct(View view, Product product){
             this.mProductTitleView.setText(product.getTitle());
-            if (!product.getUrlMainImage().isEmpty()) {
-                Picasso.with(view.getContext()).load(product.getUrlMainImage()).placeholder(R.drawable.tarbay).fit().into(mProductMainImageView);
+
+            if (product.getUrlMainImage() != null) {
+                String img = product.getUrlMainImage().trim();
+                if (!img.equals("")) {
+                    Picasso.with(view.getContext()).load(img).placeholder(R.drawable.tarbay).fit().into(mProductMainImageView);
+                }
             }
         }
 

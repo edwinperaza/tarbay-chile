@@ -82,21 +82,21 @@
                 android:textSize="16sp"
                 android:layout_weight="0.1" />
 
-            <TextView android:id="@+id/tv_or_text"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="12dp"
-                android:text="- or -"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:layout_weight="0.1" />
+            <!--<TextView android:id="@+id/tv_or_text"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_marginBottom="12dp"-->
+                <!--android:text="- or -"-->
+                <!--android:gravity="center"-->
+                <!--android:textSize="16sp"-->
+                <!--android:layout_weight="0.1" />-->
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.1" />
+            <!--<com.facebook.login.widget.LoginButton-->
+                <!--android:id="@+id/login_button"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_weight="0.1" />-->
 
             <TextView android:id="@+id/tv_link_signup"
                 android:layout_width="match_parent"

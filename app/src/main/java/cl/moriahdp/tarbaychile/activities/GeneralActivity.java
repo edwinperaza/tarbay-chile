@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-import com.facebook.login.LoginManager;
+//import com.facebook.login.LoginManager;
 
 import cl.moriahdp.tarbaychile.R;
 import cl.moriahdp.tarbaychile.utils.PreferencesManager;
@@ -27,7 +27,7 @@ public class GeneralActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Context context = getApplicationContext();
                 PreferencesManager.clearPrefs(context);
-                LoginManager.getInstance().logOut();
+                //LoginManager.getInstance().logOut();
                 startActivityClosingAllOthers(LoginActivity.class);
             }
         };

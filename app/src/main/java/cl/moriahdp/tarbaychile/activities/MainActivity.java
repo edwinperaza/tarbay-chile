@@ -77,10 +77,10 @@ public class MainActivity extends GeneralActivity
                             ShowCategoriesListFragment();
                             break;
                         }
-                        case R.id.favorite_item: {
-                            Log.d("MainActivity", "Favorite");
-                            break;
-                        }
+//                        case R.id.favorite_item: {
+//                            Log.d("MainActivity", "Favorite");
+//                            break;
+//                        }
                         case R.id.profile_item: {
                             Log.d("MainActivity", "Profile");
                             ShowProfileFragment();

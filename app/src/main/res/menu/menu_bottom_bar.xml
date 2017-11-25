@@ -8,10 +8,10 @@
         android:id="@+id/search_item"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/menu_bottom_buscar" />
-    <item
-        android:id="@+id/favorite_item"
-        android:icon="@drawable/ic_favorite_border_black_24dp"
-        android:title="@string/menu_bottom_favoritos" />
+    <!--<item-->
+        <!--android:id="@+id/favorite_item"-->
+        <!--android:icon="@drawable/ic_favorite_border_black_24dp"-->
+        <!--android:title="@string/menu_bottom_favoritos" />-->
     <item
         android:id="@+id/profile_item"
         android:icon="@drawable/ic_person_outline_black_24dp"

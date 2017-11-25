@@ -11,15 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+//import com.android.volley.toolbox.JsonObjectRequest;
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookCallback;
+//import com.facebook.FacebookException;
+//import com.facebook.FacebookSdk;
+//import com.facebook.GraphRequest;
+//import com.facebook.GraphResponse;
+//import com.facebook.login.LoginResult;
+//import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +39,8 @@ public class LoginActivity extends GeneralActivity {
     public static final String FACEBOOK_USER_FRIENDS = "user_friends";
 
     // UI Facebook references
-    private LoginButton mLoginFacebookButton;
-    private CallbackManager mCallbackManager;
+//    private LoginButton mLoginFacebookButton;
+//    private CallbackManager mCallbackManager;
 
     //UI Login references
     private Button mLoginButton;
@@ -54,12 +54,12 @@ public class LoginActivity extends GeneralActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+//        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        mCallbackManager = CallbackManager.Factory.create();
+//        mCallbackManager = CallbackManager.Factory.create();
         // Bind views.
-        mLoginFacebookButton = (LoginButton) findViewById(R.id.login_button);
+//        mLoginFacebookButton = (LoginButton) findViewById(R.id.login_button);
         mLoginButton = (Button) findViewById(R.id.btn_login);
         mSingUpLinkView = (TextView) findViewById(R.id.tv_link_signup);
         mEmailView = (EditText) findViewById(R.id.et_input_email);
@@ -67,62 +67,62 @@ public class LoginActivity extends GeneralActivity {
 
         if(!PreferencesManager.isUserLogged(getApplicationContext())) {
             //Set Facebook permissions
-            mLoginFacebookButton.setReadPermissions(FACEBOOK_PROFILE, FACEBOOK_EMAIL, FACEBOOK_USER_FRIENDS);
+//            mLoginFacebookButton.setReadPermissions(FACEBOOK_PROFILE, FACEBOOK_EMAIL, FACEBOOK_USER_FRIENDS);
 
             // Register Callback Facebook button
-            mLoginFacebookButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-                        @Override
-                        public void onSuccess(LoginResult loginResult) {
-                            // Now we can get facebookToken but is necessary request the email address
-                            // from GraphRequest API
-                            final String tokenFacebook = loginResult.getAccessToken().getToken();
-
-                            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
-                                    new GraphRequest.GraphJSONObjectCallback() {
-                                        @Override
-                                        public void onCompleted(JSONObject jsonObject, GraphResponse response) {
-                                            String emailFacebook = "";
-                                            String firstName = "";
-                                            String lastName = "";
-                                            String gender = "";
-
-                                            try {
-                                                emailFacebook = jsonObject.getString("email");
-                                                firstName = jsonObject.getString("first_name");
-                                                lastName = jsonObject.getString("last_name");
-                                                gender = jsonObject.getString("gender");
-                                                Log.d(TAG + " Email FB",emailFacebook);
-                                                Log.d(TAG + " Token FB",tokenFacebook);
-                                                Log.d(TAG + " First FB",firstName);
-                                                Log.d(TAG + " Last FB",lastName);
-                                                Log.d(TAG + " Gender FB",gender);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                            attemptLoginWithFacebook(tokenFacebook, emailFacebook,
-                                                    firstName, lastName, gender);
-                                        }
-                                    });
-
-                            Bundle parameters = new Bundle();
-                            parameters.putString("fields", "id,email,first_name,last_name,gender");
-                            request.setParameters(parameters);
-                            request.executeAsync();
-                        }
-
-                        @Override
-                        public void onCancel() {
-                            Toast.makeText(LoginActivity.this, "Cancelado por el usuario", Toast.LENGTH_LONG).show();
-
-                        }
-
-                        @Override
-                        public void onError(FacebookException error) {
-                            Log.d("error", error.getClass().toString());
-                            Toast.makeText(LoginActivity.this, "Ha ocurrido un error", Toast.LENGTH_LONG).show();
-                        }
-                    }
-            );
+//            mLoginFacebookButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//                        @Override
+//                        public void onSuccess(LoginResult loginResult) {
+//                            // Now we can get facebookToken but is necessary request the email address
+//                            // from GraphRequest API
+//                            final String tokenFacebook = loginResult.getAccessToken().getToken();
+//
+//                            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+//                                    new GraphRequest.GraphJSONObjectCallback() {
+//                                        @Override
+//                                        public void onCompleted(JSONObject jsonObject, GraphResponse response) {
+//                                            String emailFacebook = "";
+//                                            String firstName = "";
+//                                            String lastName = "";
+//                                            String gender = "";
+//
+//                                            try {
+//                                                emailFacebook = jsonObject.getString("email");
+//                                                firstName = jsonObject.getString("first_name");
+//                                                lastName = jsonObject.getString("last_name");
+//                                                gender = jsonObject.getString("gender");
+//                                                Log.d(TAG + " Email FB",emailFacebook);
+//                                                Log.d(TAG + " Token FB",tokenFacebook);
+//                                                Log.d(TAG + " First FB",firstName);
+//                                                Log.d(TAG + " Last FB",lastName);
+//                                                Log.d(TAG + " Gender FB",gender);
+//                                            } catch (JSONException e) {
+//                                                e.printStackTrace();
+//                                            }
+//                                            attemptLoginWithFacebook(tokenFacebook, emailFacebook,
+//                                                    firstName, lastName, gender);
+//                                        }
+//                                    });
+//
+//                            Bundle parameters = new Bundle();
+//                            parameters.putString("fields", "id,email,first_name,last_name,gender");
+//                            request.setParameters(parameters);
+//                            request.executeAsync();
+//                        }
+//
+//                        @Override
+//                        public void onCancel() {
+//                            Toast.makeText(LoginActivity.this, "Cancelado por el usuario", Toast.LENGTH_LONG).show();
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(FacebookException error) {
+//                            Log.d("error", error.getClass().toString());
+//                            Toast.makeText(LoginActivity.this, "Ha ocurrido un error", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//            );
 
         } else {
             startActivityClosingAllOthers(MainActivity.class);
@@ -257,7 +257,7 @@ public class LoginActivity extends GeneralActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+//        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
