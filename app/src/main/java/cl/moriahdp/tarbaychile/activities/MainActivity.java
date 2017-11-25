@@ -17,6 +17,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
 import cl.moriahdp.tarbaychile.R;
+import cl.moriahdp.tarbaychile.fragments.CameraFragment;
 import cl.moriahdp.tarbaychile.fragments.CategoriesListFragment;
 import cl.moriahdp.tarbaychile.fragments.ContactUsFragment;
 import cl.moriahdp.tarbaychile.fragments.ProductsListFragment;
@@ -68,6 +69,7 @@ public class MainActivity extends GeneralActivity
                         case R.id.home_item: {
                             Log.d("MainActivity", "Home");
                             ShowProductListFragment();
+                            //ShowCamera();
                             break;
                         }
                         case R.id.search_item: {
@@ -138,6 +140,13 @@ public class MainActivity extends GeneralActivity
             startActivity(intent);
 
         }
+    }
+
+    public void ShowCamera() {
+        Fragment mProductsListFragment = CameraFragment.newInstance("Camera");
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragment, mProductsListFragment);
+        ft.commit();
     }
 
     public void ShowProductListFragment(){

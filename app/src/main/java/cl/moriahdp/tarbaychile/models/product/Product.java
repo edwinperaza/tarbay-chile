@@ -14,13 +14,21 @@ import java.util.List;
 public class Product implements Serializable {
 
     private String title;
-    private int price;
+    private String price;
+    private String minPrice;
+    private String sellPrice;
     private String urlMainImage;
+    private String brand;
+    private String code;
+    private String seller;
+    private String specifications;
+    private String category;
+
 
     public Product() {
     }
 
-    public Product(String title, int price, String urlMainImage) {
+    public Product(String title, String price, String urlMainImage) {
         this.title = title;
         this.price = price;
         this.urlMainImage = urlMainImage;
@@ -31,9 +39,15 @@ public class Product implements Serializable {
 
         try {
 
-            product.setTitle(jsonObjectProduct.getString("title"));
-            product.setPrice(jsonObjectProduct.getInt("price"));
-            product.setUrlMainImage(jsonObjectProduct.getString("url_image"));
+            product.setTitle(jsonObjectProduct.getString("nombre"));
+            product.setPrice(jsonObjectProduct.getString("precio_venta"));
+            product.setMinPrice(jsonObjectProduct.getString("precio_minimo"));
+            product.setUrlMainImage(jsonObjectProduct.getString("foto"));
+            product.setBrand(jsonObjectProduct.getString("marca"));
+            product.setCode(jsonObjectProduct.getString("codigo"));
+            product.setSeller(jsonObjectProduct.getString("vendedor"));
+            product.setSpecifications(jsonObjectProduct.getString("especificaciones"));
+            product.setCategory(jsonObjectProduct.getString("categoria"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -72,11 +86,11 @@ public class Product implements Serializable {
         this.title = title;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -86,5 +100,61 @@ public class Product implements Serializable {
 
     public void setUrlMainImage(String urlMainImage) {
         this.urlMainImage = urlMainImage;
+    }
+
+    public String getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(String minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
+
+    public String getSpecifications() {
+        return specifications;
+    }
+
+    public void setSpecifications(String specifications) {
+        this.specifications = specifications;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(String sellPrice) {
+        this.sellPrice = sellPrice;
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tarbay Chile</string>
+    <string name="app_name">Marketplace</string>
     <string name="facebook_app_id">1048438535209816</string>
     <string name="logout_confirmation">Esta seguro que desea salir?</string>
 
@@ -11,4 +11,5 @@
 
     <!--String related to Profile Fragment-->
     <string name="profile_share_title">Comparte con tus amigas</string>
+    <string name="error_photo_app_no_available">No puedes sacar fotos</string>
 </resources>

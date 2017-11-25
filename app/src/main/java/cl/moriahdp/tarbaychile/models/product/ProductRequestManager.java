@@ -13,8 +13,7 @@ import cl.moriahdp.tarbaychile.network.AppResponseListener;
  */
 public class ProductRequestManager extends AppRequestManager {
 
-    public static final String PRODUCT_LIST_API = BASE_URL + "products/list";
-
+    public static final String PRODUCT_LIST_API = BASE_URL + "products/list/1";
 
     /**
      * Creates a new JsonObjectRequest for get a list of stories
